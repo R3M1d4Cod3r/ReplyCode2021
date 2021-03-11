@@ -57,31 +57,23 @@ public class Recurssion {
 	}
 	
 	void DO(int pos_a,int i_a) {
-		int i;
 		if(pos_a>=Antennas.size() || i_a >= Buildings.size()) {
-			//soluzione calcola score
-			//if score > max
-			//this.printSoluzione();
 			ArrayList<ArrayList<Cella>> tmp=this.Soluzione();
 			int score=this.calcolaScore(tmp);
 			if(score>this.score_p) {
-				//System.out.println(score+"\n");
-				//this.print(tmp);
 				Antennas_soluzione.removeAll(Antennas_soluzione);
-				
-				
 				this.score_p=score;
 				this.Soluzione=this.Soluzione();
 				
-				for(Antenna a : Antennas)
-					Antennas_soluzione.add(a);
-				
+				for(Antenna a : Antennas) {
+					Antenna t=new Antenna(a.getRange(),a.getSpeed());
+					t.setX(a.getX());t.setY(a.getY());
+					Antennas_soluzione.add(t);
+					}
 			}
-			
-			
 			return;
 		}
-		//System.out.println("Cazzo");
+		
 		for(Antenna a :Antennas) {
 			if(!a.isPreso()) {
 				a.setPreso(true);
@@ -95,7 +87,6 @@ public class Recurssion {
 								a.setPosition(b.getX()+a.getVarX(), b.getY()+a.getVarY());
 						}
 						b.setPreso_b(false);
-						
 					}
 				}
 				a.setPreso(false);
@@ -125,7 +116,6 @@ public class Recurssion {
 		ArrayList<ArrayList<Cella>>Citta2=this.copiaCitta();
 		for(Antenna x : Antennas) {
 			Citta2.get(x.getY()).get(x.getX()).setA(x);
-			
 		}
 		this.print(Citta2);
 	}
@@ -133,7 +123,6 @@ public class Recurssion {
 		ArrayList<ArrayList<Cella>>Citta2=this.copiaCitta();
 		for(Antenna x : Antennas) {
 			Citta2.get(x.getY()).get(x.getX()).setA(x);
-			
 		}
 		return Citta2;
 	}
